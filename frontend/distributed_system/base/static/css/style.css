@@ -1,0 +1,106 @@
+
+/* Make video fill the screen */
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1; /* send video behind content */
+}
+
+/* Center the content in the middle */
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  padding: 30px;
+  border-radius: 15px;
+  
+}
+.content a {
+  margin: 10px;
+  border: 2px solid;
+  padding: 12px 28px;
+  font-size: 20px;
+  width: 150px;
+}
+
+/* sign up and login*/
+.content_reg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+ 
+  text-align: center;
+  background: rgba(226, 220, 220, 0.8);
+  color: #000;
+  padding: 40px;
+  border-radius: 15px;
+ 
+}
+
+.content_reg h2 {
+  font-size: 30px;
+  color: #333;
+}
+
+.content_reg form p {
+  text-align: left;
+  margin-bottom: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.content_reg form input {
+  border-radius: 10px;
+  height: 40px !important;  
+  width: 100%;          
+  box-sizing: border-box; 
+  padding: 0 15px;      
+}
+
+.content_reg button,
+.content_reg a.btn {
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 18px;
+  width: 140px;
+  text-align: center;
+}
+.errorlist {
+    color: #F00;
+    margin-left: 2rem;
+}
+
+.errorlist li::marker {
+    content: '🚨 ';
+}
+
+/* dashbord */
+.hero-section{
+  text-align: center;
+  padding: 100px 20px;
+  border-radius: 15px;
+}
+.dashbordbody{
+    background-color: #f8f9fa;
+    padding-top: 70px;
+ 
+}
+footer {
+background: #212529;
+color: white;
+text-align: center;
+padding: 20px 0;
+margin-top: 50px;
+}
+
+.custom-grey {
+    background-color: #abb0b4 !important;  /* soft grey */
+}
