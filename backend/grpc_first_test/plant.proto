@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+
+// hadi kandiro fiha function li hatakhud req ou t3ti repo
+service PlantService {
+  rpc PredictDisease (PlantRequest) returns (PlantResponse);
+}
+
+// hna massage dial client li tswira 3ibara ela bytes
+message PlantRequest {
+  bytes image = 1;  // raw image bytes
+}
+
+//hna response li hansifto 
+message PlantResponse {
+  string prediction = 1;
+  float confidence = 2; 
+}
