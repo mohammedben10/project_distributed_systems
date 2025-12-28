@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            --primary-color: #0d6efd;
+            --primary-color: #73f14cff;
             --secondary-color: #6c757d;
             --background-light: #f4f7f9;
             --card-background: rgba(255, 255, 255, 0.9);
@@ -21,10 +21,10 @@
         body {
             background: var(--background-light);
             font-family: 'Poppins', sans-serif;
-            min-height: 100vh; /* Ensure body takes full height for sticky elements */
+            min-height: 100vh; 
         }
 
-        /* Sidebar */
+        
         .sidebar {
             background: var(--sidebar-background);
             backdrop-filter: blur(15px);
@@ -43,7 +43,7 @@
             padding: 2.5rem 1rem;
             background: linear-gradient(135deg, var(--primary-color), #0a3f91);
             color: white;
-            border-bottom: 5px solid #083270;
+            border-bottom: 5px solid #207008ff;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
         }
@@ -85,7 +85,7 @@
             margin-bottom: 1rem;
         }
         
-        /* Navigation Links */
+        
         .sidebar .nav-link {
             color: #495057;
             font-weight: 500;
@@ -157,7 +157,7 @@
                 </div>
 
                 <div class="d-grid gap-2 px-3">
-                    <a class="btn btn-primary rounded-pill fw-bold" href="{% url 'edit_profile' %}">
+                    <a class="btn btn-success rounded-pill fw-bold" href="{% url 'edit_profile' %}">
                         <i class="bi bi-pencil-square me-2"></i> Edit Profile
                     </a>
 
