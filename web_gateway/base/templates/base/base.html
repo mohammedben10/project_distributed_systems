@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Leaves - Smart Farming</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* --- NATURE PALETTE --- */
+            --forest-green: #1b4332;
+            --emerald-green: #2d6a4f;
+            --mint-green: #52b788;
+            --pale-leaf: #d8f3dc;
+            --white-smoke: #f8f9fa;
+            --text-dark: #081c15;
+            
+            /* Shadows */
+            --soft-shadow: 0 10px 40px -10px rgba(45, 106, 79, 0.15);
+            --card-border: 1px solid rgba(82, 183, 136, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f7f4; /* Very subtle mint tint */
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif; /* Elegant header font */
+            color: var(--forest-green);
+        }
+
+        /* --- Sidebar: Forest Gradient --- */
+        .sidebar {
+            position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+            background: linear-gradient(160deg, #081c15 0%, #1b4332 100%);
+            color: white; z-index: 1000;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+        }
+
+        /* LOGO STYLE */
+        .brand-logo {
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding-top: 30px;
+        }
+        .brand-logo i {
+            color: #4ade80; /* Bright green leaf */
+            transform: rotate(-15deg);
+        }
+
+        .avatar-container {
+            position: relative;
+            margin: 20px auto 20px;
+            width: 100px; height: 100px;
+        }
+
+        .avatar-img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.1);
+            padding: 3px;
+        }
+
+        .status-dot {
+            position: absolute; bottom: 5px; right: 5px;
+            width: 18px; height: 18px;
+            background: #4ade80; /* Bright Green */
+            border: 3px solid #1b4332;
+            border-radius: 50%;
+        }
+
+        .nav-link {
+            color: #b7e4c7;
+            padding: 16px 30px;
+            margin: 5px 0;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-left-color: var(--mint-green);
+            padding-left: 40px; /* Slide effect */
+        }
+
+        .nav-link i { margin-right: 15px; font-size: 1.2rem; }
+
+        /* --- Main Content --- */
+        .main-wrapper { margin-left: 280px; padding: 40px; }
+
+        /* --- Organic Cards --- */
+        .eco-card {
+            background: white;
+            border-radius: 25px; /* Softer corners */
+            border: var(--card-border);
+            box-shadow: var(--soft-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .eco-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px -10px rgba(45, 106, 79, 0.25);
+        }
+
+        /* --- Buttons --- */
+        .btn-nature {
+            background: var(--emerald-green);
+            color: white;
+            border-radius: 50px;
+            padding: 10px 30px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-nature:hover { background: var(--forest-green); color: white; transform: scale(1.05); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); border-radius: 0; }
+            .main-wrapper { margin-left: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="sidebar d-flex flex-column">
+    <div class="brand-logo">
+        <i class="fas fa-leaf"></i> My Leaves
+    </div>
+
+    <div class="text-center">
+        <div class="avatar-container">
+            <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}" class="avatar-img">
+            <div class="status-dot"></div>
+        </div>
+        <h5 class="fw-bold mb-0">{{ user.username }}</h5>
+        <small style="color: #95d5b2;">{{ user.profile.ville|default:"Farmer" }}</small>
+    </div>
+
+    <div class="nav flex-column mt-4 flex-grow-1">
+        <a href="{% url 'dashbord' %}" class="nav-link {% if request.resolver_match.url_name == 'dashbord' %}active{% endif %}">
+            <i class="bi bi-grid-1x2"></i> Dashboard
+        </a>
+        <a href="{% url 'history' %}" class="nav-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}">
+            <i class="bi bi-clock-history"></i> Analysis History
+        </a>
+        <a href="{% url 'edit_profile' %}" class="nav-link {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}">
+            <i class="bi bi-sliders2"></i> Account Settings
+        </a>
+    </div>
+
+    <div class="p-4">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-light w-100 rounded-pill py-2 border-0 bg-white bg-opacity-10">
+                <i class="bi bi-box-arrow-left me-2"></i> Log Out
+            </button>
+        </form>
+    </div>
+</nav>
+
+<div class="main-wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

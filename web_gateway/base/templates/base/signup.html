@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join My Leaves</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-image: url("{% static 'images/signupimage.jpg' %}");
+            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px;
+        }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(20, 60, 20, 0.7), rgba(40, 90, 40, 0.5));
+            backdrop-filter: blur(4px); z-index: 1;
+        }
+        .signup-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px; padding: 40px 50px;
+            max-width: 900px; width: 100%; position: relative; z-index: 10;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        /* LOGO STYLES */
+        .brand-header { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
+        .brand-text { font-family: 'Merriweather', serif; font-weight: 900; color: #2e7d32; font-size: 2.5rem; letter-spacing: -1px; }
+        .brand-icon { font-size: 2.5rem; color: #43a047; }
+
+        .input-group-text { background: #f1f8e9; border: 1px solid #ced4da; border-right: none; color: #2e7d32; }
+        .form-control { border-left: none; background: #f8f9fa; padding: 12px; transition: all 0.3s; }
+        .form-control:focus { background: white; box-shadow: none; border-color: #81c784; }
+        .form-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: #6c757d; margin-bottom: 5px; }
+        .btn-farm {
+            background: linear-gradient(90deg, #2e7d32, #43a047); border: none; color: white;
+            padding: 14px; font-weight: 700; letter-spacing: 1px; transition: transform 0.2s;
+        }
+        .btn-farm:hover { transform: translateY(-2px); color: white; }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="signup-card">
+        
+        <div class="text-center mb-5">
+            <div class="brand-header">
+                <i class="fas fa-leaf brand-icon"></i>
+                <span class="brand-text">My Leaves</span>
+            </div>
+            <p class="text-muted">Create your account to start monitoring</p>
+        </div>
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger border-0 shadow-sm rounded-3 mb-4">
+            {% for error in form.non_field_errors %} <i class="fas fa-exclamation-triangle me-2"></i>{{ error }} {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        {{ form.username }}
+                    </div>
+                    <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        {{ form.email }}
+                    </div>
+                    <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Last Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Profile Picture</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                        {{ form.avatar }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Pays (Country)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                        {{ form.pay }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Ville (City)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                        {{ form.ville }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        {{ form.password1 }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label ms-1">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
+                        {{ form.password2 }}
+                    </div>
+                    <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <button type="submit" class="btn btn-farm w-100 rounded-pill shadow">CREATE ACCOUNT</button>
+            </div>
+        </form>
+
+        <p class="mt-4 text-center text-muted small">
+            Already a member? <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: #2e7d32;">Log In here</a>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var inputs = document.querySelectorAll('input, select');
+            inputs.forEach(function(input) {
+                input.classList.add('form-control');
+                if(!input.placeholder) { input.placeholder = "Enter " + input.name.replace('_', ' '); }
+            });
+            var fileInput = document.querySelector('input[type="file"]');
+            if(fileInput) { fileInput.classList.remove('form-control'); fileInput.classList.add('form-control'); }
+        });
+    </script>
+</body>
+</html>

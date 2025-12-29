@@ -1,0 +1,186 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1">Account Settings</h2>
+                    <p class="text-muted">Manage your personal information and profile appearance.</p>
+                </div>
+                <a href="{% url 'dashbord' %}" class="btn btn-light rounded-pill px-4 fw-bold text-muted border">
+                    Cancel
+                </a>
+            </div>
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-4">
+                    
+                    <div class="col-lg-4">
+                        <div class="eco-card p-4 text-center h-100 position-relative overflow-hidden">
+                            <div class="bg-gradient-header position-absolute top-0 start-0 w-100" style="height: 120px; background: linear-gradient(180deg, #d8f3dc 0%, rgba(255,255,255,0) 100%);"></div>
+                            
+                            <div class="position-relative z-1 pt-4">
+                                <div class="avatar-upload-wrapper mx-auto mb-3">
+                                    <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}" 
+                                         id="avatar-preview"
+                                         class="avatar-lg shadow-lg" 
+                                         alt="Profile Picture">
+                                    
+                                    <label for="id_avatar" class="avatar-overlay">
+                                        <i class="bi bi-camera-fill fs-3 text-white"></i>
+                                        <span class="text-white small mt-1">Change</span>
+                                    </label>
+                                </div>
+
+                                <h4 class="fw-bold mb-1">{{ user.username }}</h4>
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 mb-4">Farmer / Admin</span>
+
+                                <div class="d-none">
+                                    {{ profile_form.avatar }} 
+                                </div>
+                                
+                                <div class="alert alert-light border border-dashed text-muted small mx-2">
+                                    <i class="bi bi-info-circle me-1"></i> 
+                                    Upload a square image (JPG, PNG) for best results. Max 5MB.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="eco-card p-5">
+                            <h5 class="fw-bold text-success mb-4"><i class="bi bi-person-vcard me-2"></i>Personal Details</h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ user_form.username }}
+                                        <label class="text-muted">Username</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ user_form.email }}
+                                        <label class="text-muted">Email Address</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        {{ user_form.last_name }}
+                                        <label class="text-muted">Last Name / Full Name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="fw-bold text-success mt-5 mb-4"><i class="bi bi-geo-alt me-2"></i>Location Info</h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ profile_form.ville }}
+                                        <label class="text-muted">City (Ville)</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ profile_form.pay }}
+                                        <label class="text-muted">Country (Pays)</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="border-secondary border-opacity-10 my-5">
+                            
+                            <div class="d-flex justify-content-end gap-3">
+                                <button type="submit" class="btn btn-nature btn-lg px-5 shadow">
+                                    <i class="bi bi-check-lg me-2"></i> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Floating Form styling fix for Django widgets */
+    .form-floating > .form-control {
+        border: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        height: 58px;
+    }
+    .form-floating > .form-control:focus {
+        border-color: #52b788;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.1);
+    }
+    .form-floating > label { padding-left: 20px; }
+    .form-floating > .form-control { padding-left: 20px; }
+
+    /* Avatar Upload Styling */
+    .avatar-upload-wrapper {
+        position: relative;
+        width: 160px; height: 160px;
+        border-radius: 50%;
+        cursor: pointer;
+        overflow: hidden;
+    }
+    .avatar-lg {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        border: 5px solid white;
+        border-radius: 50%;
+    }
+    .avatar-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        opacity: 0; transition: opacity 0.3s;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .avatar-upload-wrapper:hover .avatar-overlay { opacity: 1; }
+    
+    .border-dashed { border-style: dashed !important; }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add form-control class to all inputs generated by Django
+        var inputs = document.querySelectorAll('input[type="text"], input[type="email"], select');
+        inputs.forEach(function(input) {
+            input.classList.add('form-control');
+            input.placeholder = " "; // Required for floating labels to work
+        });
+
+        // Image Preview Script
+        const fileInput = document.getElementById('id_avatar');
+        const previewImg = document.getElementById('avatar-preview');
+        
+        if(fileInput) {
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
