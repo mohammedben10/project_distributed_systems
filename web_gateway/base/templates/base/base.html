@@ -164,6 +164,9 @@
         <a href="{% url 'dashbord' %}" class="nav-link {% if request.resolver_match.url_name == 'dashbord' %}active{% endif %}">
             <i class="bi bi-grid-1x2"></i> Dashboard
         </a>
+        <a href="{% url 'analytics' %}" class="nav-link {% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
+            <i class="bi bi-graph-up-arrow"></i> IoT Analytics
+        </a>
         <a href="{% url 'history' %}" class="nav-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}">
             <i class="bi bi-clock-history"></i> Analysis History
         </a>

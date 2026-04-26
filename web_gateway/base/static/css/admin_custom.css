@@ -1,0 +1,378 @@
+/* Admin Theme Customizations matching Dashboard */
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3, h4, .h1, .h2, .h3, .h4, .brand-text {
+    font-family: 'Merriweather', serif !important;
+}
+
+/* Sidebar Styling */
+[class*="sidebar-dark-"] {
+    background: linear-gradient(160deg, #081c15 0%, #1b4332 100%) !important;
+}
+
+[class*="sidebar-dark"] .brand-link {
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+}
+
+[class*="sidebar-dark-"] .nav-sidebar > .nav-item > .nav-link.active,
+[class*="sidebar-dark-"] .nav-sidebar > .nav-item > .nav-link:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    border-left: 4px solid #52b788 !important;
+    border-radius: 0 !important;
+}
+
+/* Header Navbar */
+.main-header.navbar-dark {
+    background-color: #1b4332 !important;
+    border-bottom: 1px solid rgba(82, 183, 136, 0.2) !important;
+}
+
+/* Body / Content Area */
+.content-wrapper {
+    background-color: #f0f7f4 !important;
+}
+
+/* Cards (Eco-card style) */
+.card {
+    border-radius: 15px !important;
+    border: 1px solid rgba(82, 183, 136, 0.2) !important;
+    box-shadow: 0 10px 40px -10px rgba(45, 106, 79, 0.15) !important;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(82, 183, 136, 0.2) !important;
+    background-color: #fff !important;
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+}
+
+/* Buttons (Nature style) */
+.btn-success, .btn-primary, input[type=submit].default {
+    background-color: #2d6a4f !important;
+    border-color: #2d6a4f !important;
+    border-radius: 50px !important;
+    padding: 6px 20px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.btn-success:hover, .btn-primary:hover, input[type=submit].default:hover {
+    background-color: #1b4332 !important;
+    border-color: #1b4332 !important;
+}
+
+/* Login box override */
+.login-box .card {
+    border-radius: 25px !important;
+}
+.login-logo a {
+    color: #1b4332 !important;
+}
+
+/* Table headers */
+.table thead th {
+    color: #1b4332 !important;
+}
+
+/* Table Layout Fixes for Overflows */
+.table td, .table th {
+    white-space: normal !important;
+    word-break: break-word !important;
+    max-width: 350px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+    overflow-x: hidden !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .brand-text {
+    font-family: 'Merriweather', serif !important;
+}
+
+/* Sidebar Logo & Wrapping Fixes */
+.nav-sidebar .nav-header,
+.sidebar .nav-header,
+li.nav-header {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.4 !important;
+    padding: 10px 15px !important;
+    font-size: 0.85rem !important;
+}
+
+.brand-image {
+    display: none !important;
+}
+
+.brand-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-left: 20px !important;
+}
+
+.brand-text::before {
+    font-family: "Font Awesome 5 Free", "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    content: "\f06c" !important; /* fa-leaf */
+    margin-right: 12px !important;
+    color: #52b788 !important;
+    font-size: 24px !important;
+}
+
+/* ============================================================
+   FORM & COMPONENT FIXES (Add Group / Add User / Profiles)
+   ============================================================ */
+
+/* General Inputs */
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], select, textarea {
+    border-radius: 10px !important;
+    border: 2px solid rgba(82, 183, 136, 0.2) !important;
+    padding: 10px 15px !important;
+    transition: all 0.2s ease !important;
+    background-color: #fcfdfc !important;
+    color: #1b4332 !important;
+    width: 100% !important;
+    max-width: 600px !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #52b788 !important;
+    box-shadow: 0 0 10px rgba(82, 183, 136, 0.2) !important;
+    outline: none !important;
+    background-color: white !important;
+}
+
+/* Secondary Save Buttons */
+.btn-info {
+    background-color: #52b788 !important;
+    border-color: #52b788 !important;
+    border-radius: 50px !important;
+    color: white !important;
+}
+
+.btn-info:hover {
+    background-color: #2d6a4f !important;
+    border-color: #2d6a4f !important;
+}
+
+/* Django Dual Listbox (Permissions / Groups) */
+.selector {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 15px !important;
+    align-items: center !important;
+    flex: 1 !important;
+    justify-content: flex-start !important;
+}
+
+.selector-available, .selector-chosen {
+    border: 2px solid rgba(82, 183, 136, 0.2) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(45, 106, 79, 0.05) !important;
+    flex: 1 1 calc(50% - 40px) !important;
+    max-width: calc(50% - 40px) !important;
+    min-width: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    background: white !important;
+}
+
+.selector-available h2, .selector-chosen h2 {
+    background-color: #1b4332 !important;
+    color: white !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    text-align: center !important;
+}
+
+.selector-filter {
+    background: #f0f7f4 !important;
+    border-bottom: 2px solid rgba(82, 183, 136, 0.2) !important;
+    padding: 10px !important;
+    margin: 0 !important;
+}
+
+.selector-filter input {
+    width: 100% !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(82, 183, 136, 0.3) !important;
+}
+
+.selector select[multiple] {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 250px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 10px !important;
+}
+
+ul.selector-chooser {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 40px !important;
+    margin: 0 10px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.selector-chooser li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.selector-add, .selector-remove {
+    background: #e8f5e9 !important;
+    border: 2px solid #52b788 !important;
+    border-radius: 50% !important;
+    color: #1b4332 !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    font-size: 0 !important; /* Hide text */
+    text-indent: -9999px !important;
+    position: relative !important;
+}
+
+/* Re-inject arrows via CSS pseudo-elements with strict unicode to avoid encoding issues */
+.selector-add::after {
+    content: "\2192" !important; /* Right Arrow */
+    font-size: 24px !important;
+    text-indent: 0 !important;
+    position: absolute !important;
+    font-weight: bold !important;
+}
+
+.selector-remove::after {
+    content: "\2190" !important; /* Left Arrow */
+    font-size: 24px !important;
+    text-indent: 0 !important;
+    position: absolute !important;
+    font-weight: bold !important;
+}
+
+.selector-add:hover, .selector-remove:hover {
+    background: #52b788 !important;
+    color: white !important;
+}
+
+/* Footer links for 'Choose All' and 'Clear All' */
+.selector-chooseall, .selector-clearall {
+    display: block !important;
+    text-align: center !important;
+    padding: 10px !important;
+    background: #f0f7f4 !important;
+    color: #1b4332 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    border-top: 1px solid rgba(82, 183, 136, 0.2) !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    transition: all 0.2s !important;
+}
+
+.selector-chooseall:hover, .selector-clearall:hover {
+    background: #e8f5e9 !important;
+    color: #2d6a4f !important;
+}
+
+/* User Tabs */
+.nav-tabs {
+    border-bottom: 2px solid rgba(82, 183, 136, 0.2) !important;
+    gap: 10px !important;
+}
+
+.nav-tabs .nav-link {
+    border-radius: 12px 12px 0 0 !important;
+    color: #2d6a4f !important;
+    font-weight: 500 !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 12px 24px !important;
+    transition: 0.3s !important;
+}
+
+.nav-tabs .nav-link:hover {
+    background: rgba(82, 183, 136, 0.1) !important;
+}
+
+.nav-tabs .nav-link.active {
+    color: #1b4332 !important;
+    font-weight: 700 !important;
+    border-bottom: 3px solid #1b4332 !important;
+    background: white !important;
+}
+
+/* Form Row Spacing & Layout (Force Vertical Stack) */
+.form-group {
+    margin-bottom: 25px !important;
+}
+
+.form-group .row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.form-group .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding: 0 !important;
+}
+
+.form-group label, 
+.form-group .control-label {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 8px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    color: #1b4332 !important;
+}
+
+.form-group > div:not(label):not(.control-label),
+.form-group .row > div:not(label):not(.control-label) {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+label {
+    font-weight: 600 !important;
+    color: #1b4332 !important;
+    margin-bottom: 8px !important;
+}
+
+.help-block {
+    color: #52b788 !important;
+    font-size: 0.85rem !important;
+    margin-top: 5px !important;
+}

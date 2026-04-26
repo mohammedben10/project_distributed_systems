@@ -34,7 +34,7 @@ CLASS_NAMES = [
 ]
 
 def load_model():
-    print(f"🚀 Loading model on {DEVICE}...")
+    print(f"Loading model on {DEVICE}...")
     # hna kangado skeleton or body d model
     model = models.resnet18(weights=None)
     # hna db had resnet recognize bzaf d lhwayj(dogs,cats....) kandiro hadi bash redoh kaydiha ha f dok 38 diseases dialna
@@ -43,9 +43,9 @@ def load_model():
     # hna katlo7 dak model li gadina f dak lbody b7ala glti katlo7 brain 
     try:
         model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
-        print("✅ Model loaded successfully!")
+        print("Model loaded successfully!")
     except FileNotFoundError:
-        print(f"❌ ERROR: Could not find {MODEL_PATH}. Make sure it is in the ai_service folder!")
+        print(f"ERROR: Could not find {MODEL_PATH}. Make sure it is in the ai_service folder!")
         exit(1)
         
     # hadi katbdl model mn learning l testing
@@ -93,7 +93,7 @@ class PlantService(plant_pb2_grpc.PlantServiceServicer):
                 confidence=confidence_score
             )
         except Exception as e:
-            print(f"❌ Error processing request: {e}")
+            print(f"Error processing request: {e}")
             return plant_pb2.PlantResponse(prediction="Error", confidence=0.0)
 
 def serve():
@@ -101,7 +101,7 @@ def serve():
     plant_pb2_grpc.add_PlantServiceServicer_to_server(PlantService(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
-    print("🚀 gRPC Server listening on port 50051...")
+    print("gRPC Server listening on port 50051...")
     try:
         while True:
             time.sleep(86400)

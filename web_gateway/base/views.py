@@ -146,3 +146,7 @@ def edit_profile(request):
         "base/edit_profile.html",
         {"user_form": user_form, "profile_form": profile_form}
     )
+
+@login_required
+def analytics(request):
+    return render(request, "base/analytics.html")

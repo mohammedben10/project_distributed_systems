@@ -1,0 +1,243 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-1">IoT Analytics & Live Sensors</h2>
+            <p class="text-muted">Real-time data streaming from your ESP32 farm nodes.</p>
+        </div>
+    </div>
+
+    <!-- Sensor Dashboard Section -->
+    <div class="row mb-5 g-3">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-warning bg-opacity-10 me-3">
+                    <i class="bi bi-brightness-high text-warning fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Luminosité</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-luminosity">-- %</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-info bg-opacity-10 me-3">
+                    <i class="bi bi-cloud-haze2 text-info fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Gaz JC02</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-gas">-- ppm</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-danger bg-opacity-10 me-3">
+                    <i class="bi bi-thermometer-half text-danger fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Température Air</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-temp-air">-- °C</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-primary bg-opacity-10 me-3">
+                    <i class="bi bi-droplet text-primary fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Humidité Air</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-hum-air">-- %</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-danger bg-opacity-10 me-3">
+                    <i class="bi bi-thermometer text-danger fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Température Sol</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-temp-soil">-- °C</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-primary bg-opacity-10 me-3">
+                    <i class="bi bi-moisture text-primary fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">Humidité Sol</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-hum-soil">-- %</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="eco-card p-3 d-flex align-items-center h-100 shadow-sm border-0">
+                <div class="rounded-circle bg-success bg-opacity-10 me-3">
+                    <i class="bi bi-activity text-success fs-4"></i>
+                </div>
+                <div>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 10px;">pH du Sol</small>
+                    <h5 class="mb-0 fw-bold text-dark" id="val-ph-soil">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Charts Section -->
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="eco-card p-4 h-100">
+                <h5 class="fw-bold mb-3">Temperature Trends (°C)</h5>
+                <canvas id="tempChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="eco-card p-4 h-100">
+                <h5 class="fw-bold mb-3">Humidity Levels (%)</h5>
+                <canvas id="humChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="eco-card p-4 h-100">
+                <h5 class="fw-bold mb-3">Soil pH over Time</h5>
+                <canvas id="phChart" style="max-height: 250px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Icon Fix */
+    .eco-card .rounded-circle {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 0 !important;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // --- LIVE SENSORS SIMULATION ---
+        function updateSensors() {
+            document.getElementById('val-luminosity').innerText = (Math.random() * 40 + 40).toFixed(1) + ' %';
+            document.getElementById('val-gas').innerText = Math.floor(Math.random() * 50 + 400) + ' ppm';
+            
+            const tempAir = (Math.random() * 5 + 22).toFixed(1);
+            const tempSoil = (Math.random() * 4 + 18).toFixed(1);
+            document.getElementById('val-temp-air').innerText = tempAir + ' °C';
+            document.getElementById('val-temp-soil').innerText = tempSoil + ' °C';
+            
+            const humAir = (Math.random() * 10 + 50).toFixed(1);
+            const humSoil = (Math.random() * 15 + 45).toFixed(1);
+            document.getElementById('val-hum-air').innerText = humAir + ' %';
+            document.getElementById('val-hum-soil').innerText = humSoil + ' %';
+            
+            const phSoil = (Math.random() * 0.5 + 6.2).toFixed(2);
+            document.getElementById('val-ph-soil').innerText = phSoil;
+
+            // Flash effect
+            const values = document.querySelectorAll('[id^="val-"]');
+            values.forEach(el => {
+                el.style.opacity = '0.5';
+                setTimeout(() => { el.style.opacity = '1'; }, 200);
+                el.style.transition = 'opacity 0.2s ease-in-out';
+            });
+            
+            updateCharts(tempAir, tempSoil, humAir, humSoil, phSoil);
+        }
+
+        // --- CHARTS INITIALIZATION ---
+        const timeLabels = Array.from({length: 10}, (_, i) => `T-${10-i}`);
+        
+        // Temperature Chart
+        const ctxTemp = document.getElementById('tempChart').getContext('2d');
+        const tempChart = new Chart(ctxTemp, {
+            type: 'line',
+            data: {
+                labels: [...timeLabels],
+                datasets: [
+                    { label: 'Air Temp', data: Array(10).fill(24), borderColor: '#dc3545', tension: 0.4 },
+                    { label: 'Soil Temp', data: Array(10).fill(20), borderColor: '#fd7e14', tension: 0.4 }
+                ]
+            },
+            options: { responsive: true, animation: { duration: 500 } }
+        });
+
+        // Humidity Chart
+        const ctxHum = document.getElementById('humChart').getContext('2d');
+        const humChart = new Chart(ctxHum, {
+            type: 'bar',
+            data: {
+                labels: [...timeLabels],
+                datasets: [
+                    { label: 'Air Hum', data: Array(10).fill(55), backgroundColor: 'rgba(13, 110, 253, 0.7)' },
+                    { label: 'Soil Hum', data: Array(10).fill(50), backgroundColor: 'rgba(25, 135, 84, 0.7)' }
+                ]
+            },
+            options: { responsive: true, animation: { duration: 500 } }
+        });
+
+        // pH Chart
+        const ctxPh = document.getElementById('phChart').getContext('2d');
+        const phChart = new Chart(ctxPh, {
+            type: 'line',
+            data: {
+                labels: [...timeLabels],
+                datasets: [{ label: 'Soil pH', data: Array(10).fill(6.5), borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', fill: true, tension: 0.3 }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                scales: { y: { min: 5, max: 8 } },
+                animation: { duration: 500 } 
+            }
+        });
+
+        function updateCharts(tempA, tempS, humA, humS, phS) {
+            // Shift labels
+            const now = new Date();
+            const timeStr = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+            
+            [tempChart, humChart, phChart].forEach(chart => {
+                chart.data.labels.shift();
+                chart.data.labels.push(timeStr);
+            });
+
+            // Update Temp
+            tempChart.data.datasets[0].data.shift();
+            tempChart.data.datasets[0].data.push(tempA);
+            tempChart.data.datasets[1].data.shift();
+            tempChart.data.datasets[1].data.push(tempS);
+            tempChart.update();
+
+            // Update Hum
+            humChart.data.datasets[0].data.shift();
+            humChart.data.datasets[0].data.push(humA);
+            humChart.data.datasets[1].data.shift();
+            humChart.data.datasets[1].data.push(humS);
+            humChart.update();
+
+            // Update pH
+            phChart.data.datasets[0].data.shift();
+            phChart.data.datasets[0].data.push(phS);
+            phChart.update();
+        }
+
+        updateSensors();
+        setInterval(updateSensors, 3500);
+    });
+</script>
+{% endblock %}
