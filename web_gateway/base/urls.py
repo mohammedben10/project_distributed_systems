@@ -12,6 +12,7 @@ urlpatterns = [
     path("edit-profile/", views.edit_profile, name="edit_profile"),
     path("history/", views.history, name="history"),
     path("history/delete/<int:pk>/", views.delete_history, name="delete_history"),
+    path("analytics/", views.analytics, name="analytics"),
 ]
 
 if settings.DEBUG:
